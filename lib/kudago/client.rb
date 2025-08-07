@@ -14,5 +14,15 @@ module Kudago
       @api_version = api_version
       @lang = lang
     end
+
+    def locations(params = {})
+      res = Requests::LocationRequest.list(params)
+      Kudago::EntitiesList::LocationList.new(res, lang: @lang)
+    end
+
+    def location(slug, params = {})
+      res = Requests::LocationRequest.find(slug, params)
+      Kudago::Entities::Location.new(**res, lang: @lang)
+    end
   end
 end

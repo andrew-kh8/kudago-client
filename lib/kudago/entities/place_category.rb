@@ -2,7 +2,7 @@
 
 module Kudago
   module Entities
-    class EventCategory
+    class PlaceCategory
       attr_reader :id, :slug, :name, :lang
 
       def initialize(id: nil, slug: nil, name: nil, lang: "ru")

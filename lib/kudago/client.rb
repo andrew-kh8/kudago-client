@@ -4,16 +4,19 @@ require_relative "requests/location_request"
 require_relative "requests/agent_request"
 require_relative "requests/role_request"
 require_relative "requests/event_category_request"
+require_relative "requests/place_category_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
 require_relative "entities/role"
 require_relative "entities/event_category"
+require_relative "entities/place_category"
 
 require_relative "entities_list/location_list"
 require_relative "entities_list/agent_list"
 require_relative "entities_list/role_list"
 require_relative "entities_list/event_category_list"
+require_relative "entities_list/place_category_list"
 
 module Kudago
   class Client
@@ -48,6 +51,11 @@ module Kudago
       Kudago::Entities::EventCategory.new(**res, lang: entity_lang(params))
     end
 
+    def place_category(place_category_id, params = {})
+      res = Requests::PlaceCategoryRequest.find(place_category_id, params)
+      Kudago::Entities::PlaceCategory.new(**res, lang: entity_lang(params))
+    end
+
     # LIST METHODS
 
     def agents(params = {})
@@ -68,6 +76,11 @@ module Kudago
     def event_categories(params = {})
       res = Requests::EventCategoryRequest.list(params)
       Kudago::EntitiesList::EventCategoriesList.new(**res, lang: entity_lang(params))
+    end
+
+    def place_categories(params = {})
+      res = Requests::PlaceCategoryRequest.list(params)
+      Kudago::EntitiesList::PlaceCategoriesList.new(**res, lang: entity_lang(params))
     end
 
     private

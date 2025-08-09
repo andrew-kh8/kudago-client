@@ -1,6 +1,8 @@
 require_relative "../connection"
 require_relative "../error"
 
+require "active_support/core_ext/hash"
+
 module Kudago
   module Requests
     class BaseRequest
@@ -18,6 +20,13 @@ module Kudago
 
       def self.connection
         @@connection ||= Connection.connection
+      end
+
+      def self.parse_response_urls(res)
+        res[:next_url] = res.delete :next
+        res[:previous_url] = res.delete :previous
+
+        res
       end
     end
   end

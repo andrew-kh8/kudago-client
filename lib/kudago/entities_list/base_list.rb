@@ -1,7 +1,7 @@
 module Kudago
   module EntitiesList
     class BaseList
-      attr_reader :count, :next_url, :previous_url, :items
+      attr_reader :count, :next_url, :previous_url, :items, :lang
 
       def initialize(count:, next_url:, previous_url:, results:, lang: "ru")
         @count = count
@@ -10,12 +10,22 @@ module Kudago
         @lang = lang
 
         @items = results.map do |item|
-          @@entity_class.new(**item, lang: lang)
+          self.class.get_entity_class.new(**item, lang: lang)
         end
       end
 
-      def self.entity_class(class_name = nil)
-        @@entity_class = class_name
+      def ids
+        @items.map(&:id)
+      end
+
+      class << self
+        def entity_class(class_name = nil)
+          @entity_class = class_name
+        end
+
+        def get_entity_class
+          @entity_class || raise("Entity class not set for #{name}")
+        end
       end
     end
   end

@@ -9,7 +9,9 @@ module Kudago
 
       def self.list(params = {})
         params.slice!(:lang, :fields, :order_by)
-        get(PATH, params)
+        res = get(PATH, params)
+
+        parse_response_urls({results: res, count: res.size})
       end
 
       def self.find(slug, params = {})

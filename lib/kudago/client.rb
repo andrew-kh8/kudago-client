@@ -6,6 +6,7 @@ require_relative "requests/role_request"
 require_relative "requests/event_category_request"
 require_relative "requests/place_category_request"
 require_relative "requests/movie_request"
+require_relative "requests/place_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
@@ -13,6 +14,7 @@ require_relative "entities/role"
 require_relative "entities/event_category"
 require_relative "entities/place_category"
 require_relative "entities/movie"
+require_relative "entities/place"
 
 require_relative "entities_list/location_list"
 require_relative "entities_list/agent_list"
@@ -20,6 +22,7 @@ require_relative "entities_list/role_list"
 require_relative "entities_list/event_category_list"
 require_relative "entities_list/place_category_list"
 require_relative "entities_list/movie_list"
+require_relative "entities_list/place_list"
 
 module Kudago
   class Client
@@ -64,6 +67,11 @@ module Kudago
       Kudago::Entities::Movie.new(**res, lang: entity_lang(params))
     end
 
+    def place(place_id, params = {})
+      res = Requests::PlaceRequest.find(place_id, params)
+      Kudago::Entities::Place.new(**res, lang: entity_lang(params))
+    end
+
     # LIST METHODS
 
     def agents(params = {})
@@ -94,6 +102,11 @@ module Kudago
     def movies(params = {})
       res = Requests::MovieRequest.list(params)
       Kudago::EntitiesList::MovieList.new(**res, lang: entity_lang(params))
+    end
+
+    def places(params = {})
+      res = Requests::PlaceRequest.list(params)
+      Kudago::EntitiesList::PlaceList.new(**res, lang: entity_lang(params))
     end
 
     private

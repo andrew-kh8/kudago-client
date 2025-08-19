@@ -6,6 +6,7 @@ require_relative "requests/role_request"
 require_relative "requests/event_category_request"
 require_relative "requests/place_category_request"
 require_relative "requests/movie_request"
+require_relative "requests/movie_showing_request"
 require_relative "requests/place_request"
 
 require_relative "entities/location"
@@ -14,6 +15,7 @@ require_relative "entities/role"
 require_relative "entities/event_category"
 require_relative "entities/place_category"
 require_relative "entities/movie"
+require_relative "entities/movie_showing"
 require_relative "entities/place"
 require_relative "entities/comment"
 
@@ -23,6 +25,7 @@ require_relative "entities_list/role_list"
 require_relative "entities_list/event_category_list"
 require_relative "entities_list/place_category_list"
 require_relative "entities_list/movie_list"
+require_relative "entities_list/movie_showing_list"
 require_relative "entities_list/place_list"
 require_relative "entities_list/comment_list"
 
@@ -69,6 +72,11 @@ module Kudago
       Kudago::Entities::Movie.new(**res, lang: entity_lang(params))
     end
 
+    def movie_showing(showing_id, params = {})
+      res = Requests::MovieShowingRequest.find(showing_id, params)
+      Kudago::Entities::MovieShowing.new(**res, lang: entity_lang(params))
+    end
+
     def place(place_id, params = {})
       res = Requests::PlaceRequest.find(place_id, params)
       Kudago::Entities::Place.new(**res, lang: entity_lang(params))
@@ -109,6 +117,11 @@ module Kudago
     def movie_comments(movie_id, params = {})
       res = Requests::MovieRequest.comments(movie_id, params)
       Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
+    end
+
+    def movie_showings(params = {})
+      res = Requests::MovieShowingRequest.list(params)
+      Kudago::EntitiesList::MovieShowingList.new(**res, lang: entity_lang(params))
     end
 
     def places(params = {})

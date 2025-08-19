@@ -18,6 +18,11 @@ module Kudago
         params.slice!(:lang, :fields, :expand, :text_format)
         get("#{PATH}#{movie_id}/", params)
       end
+
+      def self.comments(movie_id, params = {})
+        params.slice!(:lang, :page, :page_size, :fields, :order_by, :ids)
+        parse_response_urls(get("#{PATH}#{movie_id}/comments/", params))
+      end
     end
   end
 end

@@ -106,6 +106,11 @@ module Kudago
       Kudago::EntitiesList::MovieList.new(**res, lang: entity_lang(params))
     end
 
+    def movie_comments(movie_id, params = {})
+      res = Requests::MovieRequest.comments(movie_id, params)
+      Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
+    end
+
     def places(params = {})
       res = Requests::PlaceRequest.list(params)
       Kudago::EntitiesList::PlaceList.new(**res, lang: entity_lang(params))

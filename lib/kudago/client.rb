@@ -15,6 +15,7 @@ require_relative "entities/event_category"
 require_relative "entities/place_category"
 require_relative "entities/movie"
 require_relative "entities/place"
+require_relative "entities/comment"
 
 require_relative "entities_list/location_list"
 require_relative "entities_list/agent_list"
@@ -23,6 +24,7 @@ require_relative "entities_list/event_category_list"
 require_relative "entities_list/place_category_list"
 require_relative "entities_list/movie_list"
 require_relative "entities_list/place_list"
+require_relative "entities_list/comment_list"
 
 module Kudago
   class Client
@@ -107,6 +109,11 @@ module Kudago
     def places(params = {})
       res = Requests::PlaceRequest.list(params)
       Kudago::EntitiesList::PlaceList.new(**res, lang: entity_lang(params))
+    end
+
+    def place_comments(place_id, params = {})
+      res = Requests::PlaceRequest.comments(place_id, params)
+      Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
     end
 
     private

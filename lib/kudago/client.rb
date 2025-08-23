@@ -9,6 +9,7 @@ require_relative "requests/movie_request"
 require_relative "requests/movie_showing_request"
 require_relative "requests/place_request"
 require_relative "requests/news_request"
+require_relative "requests/event_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
@@ -20,6 +21,7 @@ require_relative "entities/movie_showing"
 require_relative "entities/place"
 require_relative "entities/comment"
 require_relative "entities/news"
+require_relative "entities/event"
 
 require_relative "entities_list/location_list"
 require_relative "entities_list/agent_list"
@@ -31,6 +33,7 @@ require_relative "entities_list/movie_showing_list"
 require_relative "entities_list/place_list"
 require_relative "entities_list/comment_list"
 require_relative "entities_list/news_list"
+require_relative "entities_list/event_list"
 
 module Kudago
   class Client
@@ -92,6 +95,16 @@ module Kudago
 
     def news_comment(news_id, comment_id, params = {})
       res = Requests::NewsRequest.comment(news_id, comment_id, params)
+      Kudago::Entities::Comment.new(**res, lang: entity_lang(params))
+    end
+
+    def event(event_id, params = {})
+      res = Requests::EventRequest.find(event_id, params)
+      Kudago::Entities::Event.new(**res, lang: entity_lang(params))
+    end
+
+    def event_comment(event_id, comment_id, params = {})
+      res = Requests::EventRequest.comment(event_id, comment_id, params)
       Kudago::Entities::Comment.new(**res, lang: entity_lang(params))
     end
 
@@ -159,6 +172,16 @@ module Kudago
 
     def news_comments(news_id, params = {})
       res = Requests::NewsRequest.comments(news_id, params)
+      Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
+    end
+
+    def events(params = {})
+      res = Requests::EventRequest.list(params)
+      Kudago::EntitiesList::EventList.new(**res, lang: entity_lang(params))
+    end
+
+    def event_comments(event_id, params = {})
+      res = Requests::EventRequest.comments(event_id, params)
       Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
     end
 

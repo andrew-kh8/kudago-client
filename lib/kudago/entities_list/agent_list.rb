@@ -1,5 +1,4 @@
 require_relative "base_list"
-require_relative "../entities/agent"
 
 module Kudago
   module EntitiesList

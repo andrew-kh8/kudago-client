@@ -41,7 +41,9 @@ module Kudago
         @favorites_count = favorites_count
         @comments_count = comments_count
 
-        @categories = categories
+        @categories = categories&.map do |category_name|
+          Entities::PlaceCategory.new(name: category_name, lang: lang)
+        end
         @short_title = short_title
         @tags = tags
         @age_restriction = age_restriction

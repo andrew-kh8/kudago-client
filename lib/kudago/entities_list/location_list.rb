@@ -1,5 +1,4 @@
 require_relative "base_list"
-require_relative "../entities/location"
 
 module Kudago
   module EntitiesList

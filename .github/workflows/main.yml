@@ -1,17 +1,20 @@
-name: Ruby
+name: Kudago Client CI
 
 on:
+  pull_request:
   push:
     branches:
       - master
 
-  pull_request:
-
 jobs:
   lint:
+    runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: standard
-      - run: rake standard
+        uses: rake standard
 
   build:
     runs-on: ubuntu-latest

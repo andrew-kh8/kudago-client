@@ -11,6 +11,7 @@ require_relative "requests/place_request"
 require_relative "requests/news_request"
 require_relative "requests/event_request"
 require_relative "requests/event_of_the_day_request"
+require_relative "requests/list_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
@@ -23,6 +24,7 @@ require_relative "entities/place"
 require_relative "entities/comment"
 require_relative "entities/news"
 require_relative "entities/event"
+require_relative "entities/list"
 
 require_relative "entities_list/location_list"
 require_relative "entities_list/agent_list"
@@ -35,6 +37,7 @@ require_relative "entities_list/place_list"
 require_relative "entities_list/comment_list"
 require_relative "entities_list/news_list"
 require_relative "entities_list/event_list"
+require_relative "entities_list/list_list"
 
 module Kudago
   class Client
@@ -106,6 +109,16 @@ module Kudago
 
     def event_comment(event_id, comment_id, params = {})
       res = Requests::EventRequest.comment(event_id, comment_id, params)
+      Kudago::Entities::Comment.new(**res, lang: entity_lang(params))
+    end
+
+    def list(list_id, params = {})
+      res = Requests::ListRequest.find(list_id, params)
+      Kudago::Entities::List.new(**res, lang: entity_lang(params))
+    end
+
+    def list_comment(list_id, comment_id, params = {})
+      res = Requests::ListRequest.comment(list_id, comment_id, params)
       Kudago::Entities::Comment.new(**res, lang: entity_lang(params))
     end
 
@@ -189,6 +202,16 @@ module Kudago
     def events_of_the_day(params = {})
       res = Requests::EventOfTheDayRequest.list(params)
       Kudago::EntitiesList::EventList.new(**res, lang: entity_lang(params))
+    end
+
+    def lists(params = {})
+      res = Requests::ListRequest.list(params)
+      Kudago::EntitiesList::ListList.new(**res, lang: entity_lang(params))
+    end
+
+    def list_comments(list_id, params = {})
+      res = Requests::ListRequest.comments(list_id, params)
+      Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
     end
 
     private

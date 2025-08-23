@@ -26,7 +26,7 @@ module Kudago
         @site_url = site_url
         @item_url = item_url
         @disable_comments = disable_comments
-        @items = Kudago::EntitiesList::MultipleList.new(items, lang: lang) if items
+        @items = Kudago::EntitiesList::MultipleList.new(results: items, lang: lang) if items
 
         @publication_date = Time.at(publication_date).to_datetime if publication_date
         @images = images&.map { |img| Image.new(**img) }

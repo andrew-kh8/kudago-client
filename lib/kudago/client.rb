@@ -12,6 +12,7 @@ require_relative "requests/news_request"
 require_relative "requests/event_request"
 require_relative "requests/event_of_the_day_request"
 require_relative "requests/list_request"
+require_relative "requests/search_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
@@ -38,6 +39,7 @@ require_relative "entities_list/comment_list"
 require_relative "entities_list/news_list"
 require_relative "entities_list/event_list"
 require_relative "entities_list/list_list"
+require_relative "entities_list/multiple_list"
 
 module Kudago
   class Client
@@ -212,6 +214,11 @@ module Kudago
     def list_comments(list_id, params = {})
       res = Requests::ListRequest.comments(list_id, params)
       Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
+    end
+
+    def search(query, params = {})
+      res = Requests::SearchRequest.search(query, params)
+      Kudago::EntitiesList::MultipleList.new(**res, lang: entity_lang(params))
     end
 
     private

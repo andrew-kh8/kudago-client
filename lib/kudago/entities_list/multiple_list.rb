@@ -8,13 +8,15 @@ require_relative "../entities/movie"
 module Kudago
   module EntitiesList
     class MultipleList
-      attr_reader :items, :lang, :count
+      attr_reader :items, :lang, :count, :next_url, :previous_url
 
-      def initialize(items, lang: "ru", item_params: {})
+      def initialize(results:, lang: "ru", count: nil, next_url: nil, previous_url: nil, item_params: {})
+        @next_url = next_url
+        @previous_url = previous_url
         @lang = lang
-        @count = items.size
+        @count = count || results.size
 
-        @items = items.map do |item|
+        @items = results.map do |item|
           item[:site_url] = item.delete(:item_url) if item.key?(:item_url) && item[:ctype] != "listitem"
           item[:publication_date] = item.delete(:date) if item.key?(:date)
           item[:images] = [item.delete(:first_image)].compact if item.key?(:first_image)

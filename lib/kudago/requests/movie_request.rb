@@ -19,6 +19,13 @@ module Kudago
         get("#{PATH}#{movie_id}/", params)
       end
 
+      def self.showings(movie_id, params = {})
+        params.slice!(:lang, :page, :page_size, :fields, :expand, :order_by, :location,
+          :actual_since, :actual_until, :place, :is_free)
+
+        parse_response_urls(get("#{PATH}#{movie_id}/showings/", params))
+      end
+
       def self.comments(movie_id, params = {})
         params.slice!(:lang, :page, :page_size, :fields, :order_by, :ids)
         parse_response_urls(get("#{PATH}#{movie_id}/comments/", params))

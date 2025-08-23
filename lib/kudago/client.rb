@@ -72,7 +72,7 @@ module Kudago
       Kudago::Entities::Movie.new(**res, lang: entity_lang(params))
     end
 
-    def movie_showing(showing_id, params = {})
+    def showing(showing_id, params = {})
       res = Requests::MovieShowingRequest.find(showing_id, params)
       Kudago::Entities::MovieShowing.new(**res, lang: entity_lang(params))
     end
@@ -119,9 +119,14 @@ module Kudago
       Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
     end
 
-    def movie_showings(params = {})
+    def showings(params = {})
       res = Requests::MovieShowingRequest.list(params)
       Kudago::EntitiesList::MovieShowingList.new(**res, lang: entity_lang(params))
+    end
+
+    def movie_showings(movie_id, params = {})
+      res = Requests::MovieRequest.showings(movie_id, params)
+      Kudago::EntitiesList::MovieShowingList.new(**res, item_params: {movie: {id: movie_id}}, lang: entity_lang(params))
     end
 
     def places(params = {})

@@ -51,14 +51,14 @@ module Kudago
           Entities::EventCategory.new(name: category_name, lang: lang)
         end
 
-        @participants = participants.map do |participant|
+        @participants = participants&.map do |participant|
           Participant.new(
             Role.new(**participant[:role], lang: lang),
             Agent.new(**participant[:agent], lang: lang)
           )
         end
 
-        @dates = dates.map do |date|
+        @dates = dates&.map do |date|
           EventDate.new(
             start_date: date[:start_date],
             start_time: date[:start_time],

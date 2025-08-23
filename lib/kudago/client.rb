@@ -10,6 +10,7 @@ require_relative "requests/movie_showing_request"
 require_relative "requests/place_request"
 require_relative "requests/news_request"
 require_relative "requests/event_request"
+require_relative "requests/event_of_the_day_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
@@ -183,6 +184,11 @@ module Kudago
     def event_comments(event_id, params = {})
       res = Requests::EventRequest.comments(event_id, params)
       Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
+    end
+
+    def events_of_the_day(params = {})
+      res = Requests::EventOfTheDayRequest.list(params)
+      Kudago::EntitiesList::EventList.new(**res, lang: entity_lang(params))
     end
 
     private

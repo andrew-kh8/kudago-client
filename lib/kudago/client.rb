@@ -8,6 +8,7 @@ require_relative "requests/place_category_request"
 require_relative "requests/movie_request"
 require_relative "requests/movie_showing_request"
 require_relative "requests/place_request"
+require_relative "requests/news_request"
 
 require_relative "entities/location"
 require_relative "entities/agent"
@@ -18,6 +19,7 @@ require_relative "entities/movie"
 require_relative "entities/movie_showing"
 require_relative "entities/place"
 require_relative "entities/comment"
+require_relative "entities/news"
 
 require_relative "entities_list/location_list"
 require_relative "entities_list/agent_list"
@@ -28,6 +30,7 @@ require_relative "entities_list/movie_list"
 require_relative "entities_list/movie_showing_list"
 require_relative "entities_list/place_list"
 require_relative "entities_list/comment_list"
+require_relative "entities_list/news_list"
 
 module Kudago
   class Client
@@ -80,6 +83,16 @@ module Kudago
     def place(place_id, params = {})
       res = Requests::PlaceRequest.find(place_id, params)
       Kudago::Entities::Place.new(**res, lang: entity_lang(params))
+    end
+
+    def piece_news(news_id, params = {})
+      res = Requests::NewsRequest.find(news_id, params)
+      Kudago::Entities::News.new(**res, lang: entity_lang(params))
+    end
+
+    def news_comment(news_id, comment_id, params = {})
+      res = Requests::NewsRequest.comment(news_id, comment_id, params)
+      Kudago::Entities::Comment.new(**res, lang: entity_lang(params))
     end
 
     # LIST METHODS
@@ -136,6 +149,16 @@ module Kudago
 
     def place_comments(place_id, params = {})
       res = Requests::PlaceRequest.comments(place_id, params)
+      Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
+    end
+
+    def news(params = {})
+      res = Requests::NewsRequest.list(params)
+      Kudago::EntitiesList::NewsList.new(**res, lang: entity_lang(params))
+    end
+
+    def news_comments(news_id, params = {})
+      res = Requests::NewsRequest.comments(news_id, params)
       Kudago::EntitiesList::CommentList.new(**res, lang: entity_lang(params))
     end
 

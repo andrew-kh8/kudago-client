@@ -7,7 +7,7 @@ module Kudago
     class MovieShowing
       attr_accessor :lang, :id, :movie, :place, :datetime, :three_d, :imax, :four_dx, :original_language, :price
 
-      def initialize(lang:, id:, movie:, place:, datetime:, three_d: false, imax: false, four_dx: false, original_language: nil, price: nil)
+      def initialize(lang:, id: nil, movie: nil, place: nil, datetime: nil, three_d: false, imax: false, four_dx: false, original_language: nil, price: nil)
         @lang = lang
         @id = id
         @price = price

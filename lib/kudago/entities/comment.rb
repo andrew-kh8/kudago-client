@@ -9,7 +9,7 @@ module Kudago
 
       attr_accessor :lang, :id, :date_posted, :text, :user, :is_deleted, :replies_count, :reply_to, :thread
 
-      def initialize(lang:, id:, date_posted:, text:, user:, is_deleted: false, replies_count: 0, reply_to: nil, thread: nil)
+      def initialize(lang:, id: nil, date_posted: nil, text: nil, user: nil, is_deleted: false, replies_count: 0, reply_to: nil, thread: nil)
         @lang = lang
         @id = id
         @text = text

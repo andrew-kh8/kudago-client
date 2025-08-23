@@ -12,3 +12,5 @@
 
 # vscode stuff
 .vscode
+
+Gemfile.lock

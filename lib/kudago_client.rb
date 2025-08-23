@@ -1,4 +1,4 @@
-require_relative "kudago/client"
+require_relative "kudago_client/client"
 
 module KudagoClient
   VERSION = "0.1.0"

@@ -53,7 +53,7 @@ module KudagoClient
         @participations = participations&.map do |participation|
           Participation.new(
             Role.new(**participation[:role], lang: lang),
-            Event.new(**participation[:item], lang: lang)
+            (participation[:item][:ctype] == "event") ? Event.new(**participation[:item].except(:ctype), lang: lang) : nil
           )
         end
       end

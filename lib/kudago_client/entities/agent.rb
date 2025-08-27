@@ -20,6 +20,8 @@ module KudagoClient
       # rank - рейтинг объекта
       # participations - список участий агента
 
+      Participation = Struct.new(:role, :event)
+
       attr_reader :lang, :id, :title, :slug, :favorites_count, :comments_count, :description, :body_text,
         :site_url, :disable_comments, :ctype, :images, :agent_type, :rank, :participations, :text_format, :is_stub
 
@@ -39,7 +41,6 @@ module KudagoClient
         @disable_comments = disable_comments
         @favorites_count = favorites_count
         @is_stub = is_stub
-        @participations = participations # participant entity ???
         @rank = rank
         @site_url = site_url
         @slug = slug
@@ -48,6 +49,12 @@ module KudagoClient
 
         @images = images&.map do |image|
           KudagoClient::Entities::Image.new(image: image[:image], thumbnails: image[:thumbnails], source: image[:source])
+        end
+        @participations = participations&.map do |participation|
+          Participation.new(
+            Role.new(**participation[:role], lang: lang),
+            Event.new(**participation[:item], lang: lang)
+          )
         end
       end
     end

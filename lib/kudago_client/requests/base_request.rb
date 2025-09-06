@@ -10,7 +10,7 @@ module KudagoClient
       def self.get(path, params = {})
         response = connection.get(path, params)
 
-        if response.success?
+        if response.success? && response.body.present?
           Response.new(response.body)
         else
           message = response.body.is_a?(String) ? [response.reason_phrase, response.status].join(" ") : response.body[:detail]

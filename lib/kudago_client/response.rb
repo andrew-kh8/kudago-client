@@ -12,7 +12,7 @@ module KudagoClient
       prepared_data =
         if response_body.is_a? Array
           parse_with_count(response_body)
-        elsif response_body.key? :count
+        elsif response_body.is_a?(Hash) && response_body.key?(:count)
           parse_response_urls(response_body)
         else
           @list = false

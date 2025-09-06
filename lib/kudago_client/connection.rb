@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require "faraday"
 require "oj"
+
+require_relative "version"
 
 module KudagoClient
   class Connection

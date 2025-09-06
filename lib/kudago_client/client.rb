@@ -43,13 +43,18 @@ require_relative "entities_list/multiple_list"
 
 module KudagoClient
   class Client
-    attr_accessor :api_version
+    attr_accessor :lang
 
-    LANG = "ru"
+    class << self
+      attr_accessor :default_lang
 
-    def initialize(lang: LANG)
-      @api_version = api_version
-      @lang = lang
+      def config &blk
+        blk.call(self) if block_given?
+      end
+    end
+
+    def initialize(lang: nil)
+      @lang = lang || self.class.default_lang
     end
 
     # ENTITY METHODS

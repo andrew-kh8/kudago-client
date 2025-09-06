@@ -11,7 +11,7 @@ module KudagoClient
         params.slice!(:lang, :page, :page_size, :expand, :location, :ctype, :is_free, :include_inactual, :lat, :lon, :radius)
         params[:q] = query
 
-        parse_response_urls(get(PATH, params))
+        get(PATH, params)
       end
     end
   end

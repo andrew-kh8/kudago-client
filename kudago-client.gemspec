@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/kudago_client"
+require_relative "lib/kudago_client/version"
 
 Gem::Specification.new do |spec|
   spec.name = "kudago-client"
@@ -37,8 +37,9 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "example-gem", "~> 1.0"
   spec.add_dependency "faraday", "~> 2.13"
   spec.add_dependency "oj", "~> 3.16"
+  spec.add_dependency "activesupport", ">= 6.0"
 
-  # spec.add_development_dependency "rspec", "~> 3.0" # uncomment when use RSpec
+  spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "standard", "~> 1.50.0"
 
   # For more information and examples about making a new gem, check out our

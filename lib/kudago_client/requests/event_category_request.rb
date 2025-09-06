@@ -9,9 +9,7 @@ module KudagoClient
 
       def self.list(params = {})
         params.slice!(:lang, :fields, :order_by)
-        res = get(PATH, params)
-
-        parse_response_urls({results: res, count: res.size})
+        get(PATH, params)
       end
 
       def self.find(event_category_id, params = {})

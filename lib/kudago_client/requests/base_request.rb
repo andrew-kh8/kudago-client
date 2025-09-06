@@ -1,7 +1,8 @@
 require_relative "../connection"
 require_relative "../error"
+require_relative "../response"
 
-require "active_support/core_ext/hash"
+require "active_support/core_ext/hash/slice"
 
 module KudagoClient
   module Requests
@@ -10,7 +11,7 @@ module KudagoClient
         response = connection.get(path, params)
 
         if response.success?
-          response.body
+          Response.new(response.body)
         else
           message = response.body.is_a?(String) ? [response.reason_phrase, response.status].join(" ") : response.body[:detail]
           raise KudagoClient::Error.new(message:, status: response.status, reason: response.reason_phrase)
@@ -21,13 +22,6 @@ module KudagoClient
 
       def self.connection
         @@connection ||= Connection.connection
-      end
-
-      def self.parse_response_urls(res)
-        res[:next_url] = res.delete :next
-        res[:previous_url] = res.delete :previous
-
-        res
       end
     end
   end

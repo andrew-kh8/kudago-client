@@ -12,11 +12,12 @@ module KudagoClient
         params.slice!(:lang, :page, :page_size, :fields, :expand, :text_format, :location, :date)
         res = get(PATH, params)
 
-        res[:results] = res[:results].map do |event_data|
+        # looks bad :(
+        res.data[:results] = res.data[:results].map do |event_data|
           parse_event_data(event_data)
         end
 
-        parse_response_urls(res)
+        res
       end
 
       private_class_method

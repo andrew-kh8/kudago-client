@@ -5,8 +5,8 @@ module KudagoClient
 
       def initialize(count:, next_url:, previous_url:, results:, lang: "ru", item_params: {})
         @count = count
-        @next = next_url
-        @previous = previous_url
+        @next_url = next_url
+        @previous_url = previous_url
         @lang = lang
 
         @items = results.map do |item|

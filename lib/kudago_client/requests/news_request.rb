@@ -11,7 +11,7 @@ module KudagoClient
         params.slice!(:lang, :page, :page_size, :fields, :expand, :order_by, :text_format, :ids, :tags,
           :location, :place_id, :actual_only)
 
-        parse_response_urls(get(PATH, params))
+        get(PATH, params)
       end
 
       def self.find(news_id, params = {})
@@ -21,7 +21,7 @@ module KudagoClient
 
       def self.comments(news_id, params = {})
         params.slice!(:lang, :page, :page_size, :fields, :order_by, :ids)
-        parse_response_urls(get("#{PATH}#{news_id}/comments/", params))
+        get("#{PATH}#{news_id}/comments/", params)
       end
 
       def self.comment(news_id, comment_id, params = {})

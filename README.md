@@ -63,6 +63,10 @@ client.events_of_the_day({}) # KudagoClient::EntitiesList::EventList
 client.lists({}) # KudagoClient::EntitiesList::ListList
 client.list_comments(list_id, {}) # KudagoClient::EntitiesList::CommentList
 client.search(query, {}) # KudagoClient::EntitiesList::MultipleList
+
+# get another page of list
+client.next_page(list, {})
+client.previous_page(list, {})
 ```
 
 
@@ -93,6 +97,11 @@ end
 
 ## Development
 
+You can contribute to this gem :)
+
+Just fork the repo and then make PR
+
+I wrote a simple [To Do list](./to_do.md)
 
 ## Contributing
 

@@ -1,7 +1,7 @@
 require_relative "../connection"
 require_relative "../error"
 
-require "active_support/core_ext/hash"
+require "active_support/core_ext/hash/slice"
 
 module KudagoClient
   module Requests
